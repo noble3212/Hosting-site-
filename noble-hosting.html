@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noble Hosting — Owned Infrastructure, Held to a Standard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0d13;
+    --surface: #12151d;
+    --surface-2: #171b25;
+    --line: #262b38;
+    --line-soft: #1b1f2a;
+    --text: #ece8de;
+    --text-muted: #8891a3;
+    --text-dim: #5b6376;
+    --brass: #c9a961;
+    --brass-bright: #ddc384;
+    --brass-dim: #8a754a;
+    --wine: #7a3242;
+
+    --serif: 'Fraunces', serif;
+    --sans: 'Manrope', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+
+    --max: 1180px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* faint engraved backdrop texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 15%, rgba(201,169,97,0.05), transparent 40%),
+      radial-gradient(circle at 85% 60%, rgba(122,50,66,0.06), transparent 45%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+
+  /* ---------- NAV ---------- */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(10,13,19,0.82);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 32px;
+    max-width: var(--max); margin: 0 auto;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-mark {
+    width: 34px; height: 34px; flex-shrink: 0;
+  }
+  .brand-name {
+    font-family: var(--serif); font-weight: 600; font-size: 1.15rem;
+    letter-spacing: 0.02em; color: var(--text);
+  }
+  .brand-name span { color: var(--brass); font-style: italic; font-weight: 500; }
+
+  .nav-links { display: flex; gap: 36px; align-items: center; }
+  .nav-links a {
+    font-size: 0.88rem; color: var(--text-muted); font-weight: 500;
+    letter-spacing: 0.01em; transition: color 0.2s ease;
+  }
+  .nav-links a:hover { color: var(--brass-bright); }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--sans); font-weight: 700; font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    padding: 11px 22px; border-radius: 3px;
+    border: 1px solid var(--brass);
+    background: var(--brass);
+    color: #14110a;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .btn:hover { background: var(--brass-bright); border-color: var(--brass-bright); transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent; color: var(--text); border-color: var(--line);
+  }
+  .btn-ghost:hover { border-color: var(--brass); color: var(--brass-bright); background: transparent; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    position: relative; z-index: 1;
+    padding: 110px 32px 90px;
+    max-width: var(--max); margin: 0 auto;
+    display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 60px; align-items: center;
+  }
+  .eyebrow {
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em;
+    color: var(--brass); text-transform: uppercase; margin-bottom: 22px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .eyebrow::before {
+    content: ''; width: 22px; height: 1px; background: var(--brass-dim);
+  }
+  h1 {
+    font-family: var(--serif); font-weight: 500; font-size: clamp(2.4rem, 4.6vw, 3.7rem);
+    line-height: 1.08; letter-spacing: -0.01em; color: var(--text);
+    margin-bottom: 26px;
+  }
+  h1 em { color: var(--brass-bright); font-style: italic; font-weight: 500; }
+  .hero p.lede {
+    font-size: 1.08rem; color: var(--text-muted); max-width: 480px; margin-bottom: 36px;
+    line-height: 1.65;
+  }
+  .hero-ctas { display: flex; gap: 14px; margin-bottom: 46px; }
+  .hero-ctas .btn { padding: 14px 28px; font-size: 0.9rem; }
+
+  .trust-line {
+    display: flex; gap: 28px; flex-wrap: wrap;
+    font-family: var(--mono); font-size: 0.76rem; color: var(--text-dim);
+  }
+  .trust-line span { display: flex; align-items: center; gap: 8px; }
+  .trust-line .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--brass-dim); }
+
+  /* ---------- PLAQUE (signature widget) ---------- */
+  .plaque {
+    position: relative;
+    background: linear-gradient(155deg, var(--surface-2), var(--surface));
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 34px 30px;
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.03);
+  }
+  .plaque::before {
+    content: '';
+    position: absolute; inset: 6px;
+    border: 1px solid rgba(201,169,97,0.16);
+    border-radius: 3px;
+    pointer-events: none;
+  }
+  .plaque-head {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 22px; padding-bottom: 18px; border-bottom: 1px solid var(--line);
+  }
+  .plaque-head .label {
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em;
+    color: var(--text-dim); text-transform: uppercase;
+  }
+  .plaque-head .value {
+    font-family: var(--mono); font-size: 0.75rem; color: var(--brass);
+  }
+  .spec-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 13px 0; border-bottom: 1px solid var(--line-soft);
+  }
+  .spec-row:last-child { border-bottom: none; }
+  .spec-row .k { font-size: 0.86rem; color: var(--text-muted); }
+  .spec-row .v { font-family: var(--mono); font-size: 0.95rem; color: var(--text); font-weight: 500; }
+  .spec-row .v span { color: var(--brass-bright); }
+
+  /* ---------- SECTIONS ---------- */
+  section { position: relative; z-index: 1; padding: 88px 32px; }
+  .section-head { max-width: 620px; margin-bottom: 56px; }
+  .section-head .eyebrow { margin-bottom: 16px; }
+  .section-head h2 {
+    font-family: var(--serif); font-weight: 500; font-size: clamp(1.7rem, 3vw, 2.3rem);
+    color: var(--text); margin-bottom: 14px; letter-spacing: -0.01em;
+  }
+  .section-head p { color: var(--text-muted); font-size: 1rem; line-height: 1.65; }
+
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* features */
+  .features-grid {
+    max-width: var(--max); margin: 0 auto;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: var(--line); border: 1px solid var(--line); border-radius: 8px; overflow: hidden;
+  }
+  .feature-card {
+    background: var(--surface); padding: 32px 26px;
+    transition: background 0.25s ease;
+  }
+  .feature-card:hover { background: var(--surface-2); }
+  .feature-icon {
+    width: 30px; height: 30px; margin-bottom: 20px;
+    color: var(--brass);
+  }
+  .feature-card h3 {
+    font-family: var(--sans); font-weight: 700; font-size: 0.98rem;
+    margin-bottom: 10px; color: var(--text);
+  }
+  .feature-card p { font-size: 0.87rem; color: var(--text-muted); line-height: 1.55; }
+
+  /* plans */
+  .plans-wrap { max-width: var(--max); margin: 0 auto; }
+  .plans-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .plan-card {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 38px 34px;
+    display: flex; flex-direction: column;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+  }
+  .plan-card:hover { border-color: var(--brass-dim); transform: translateY(-3px); }
+  .plan-card.featured { border-color: var(--brass); }
+  .plan-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 26px; }
+  .plan-name { font-family: var(--serif); font-size: 1.35rem; font-weight: 500; color: var(--text); }
+  .plan-tag {
+    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--brass); border: 1px solid var(--brass-dim); padding: 4px 9px; border-radius: 20px;
+  }
+
+  /* seal / wax badge — signature element */
+  .seal {
+    width: 58px; height: 58px; border-radius: 50%; flex-shrink: 0;
+    background: radial-gradient(circle at 32% 28%, #e0c483, var(--brass) 45%, var(--brass-dim) 78%, #5f4d2c 100%);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.4), inset 0 -3px 5px rgba(0,0,0,0.25), inset 0 2px 3px rgba(255,255,255,0.35);
+    position: relative;
+  }
+  .seal::before {
+    content: '';
+    position: absolute; inset: 5px;
+    border-radius: 50%;
+    border: 1px dashed rgba(20,17,10,0.35);
+  }
+  .seal span {
+    font-family: var(--serif); font-style: italic; font-weight: 600; font-size: 1.05rem;
+    color: #241c0d; letter-spacing: -0.02em;
+  }
+
+  .plan-price { display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px; }
+  .plan-price .amount { font-family: var(--mono); font-size: 2.6rem; font-weight: 500; color: var(--text); }
+  .plan-price .period { font-size: 0.9rem; color: var(--text-dim); }
+  .plan-sub { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 28px; }
+
+  .plan-specs { list-style: none; margin-bottom: 32px; flex-grow: 1; }
+  .plan-specs li {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.88rem; color: var(--text); padding: 9px 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .plan-specs li:last-child { border-bottom: none; }
+  .plan-specs li::before {
+    content: ''; width: 5px; height: 5px; background: var(--brass); border-radius: 50%; flex-shrink: 0;
+  }
+  .plan-specs li b { color: var(--brass-bright); font-family: var(--mono); font-weight: 500; }
+
+  .plan-card .btn { width: 100%; padding: 13px; font-size: 0.88rem; }
+
+  /* uptime strip */
+  .uptime-strip {
+    max-width: var(--max); margin: 0 auto;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  }
+  .uptime-item {
+    padding: 40px 30px; text-align: center;
+    border-right: 1px solid var(--line);
+  }
+  .uptime-item:last-child { border-right: none; }
+  .uptime-num {
+    font-family: var(--serif); font-style: italic; font-weight: 500;
+    font-size: 2.6rem; color: var(--brass-bright); display: block; margin-bottom: 8px;
+  }
+  .uptime-label {
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  /* footer / cta */
+  .cta-block {
+    max-width: var(--max); margin: 0 auto;
+    text-align: center; padding: 100px 32px;
+  }
+  .cta-block h2 {
+    font-family: var(--serif); font-weight: 500; font-size: clamp(1.9rem, 4vw, 2.8rem);
+    margin-bottom: 20px; max-width: 640px; margin-left: auto; margin-right: auto;
+  }
+  .cta-block p { color: var(--text-muted); margin-bottom: 36px; }
+
+  footer {
+    border-top: 1px solid var(--line-soft);
+    padding: 40px 32px;
+  }
+  .footer-inner {
+    max-width: var(--max); margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono); font-size: 0.76rem; color: var(--text-dim);
+  }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { color: var(--text-dim); transition: color 0.2s ease; }
+  .footer-links a:hover { color: var(--brass); }
+
+  @media (max-width: 880px) {
+    .hero { grid-template-columns: 1fr; padding-top: 60px; }
+    .nav-links { display: none; }
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .plans-grid { grid-template-columns: 1fr; }
+    .uptime-strip { grid-template-columns: 1fr; }
+    .uptime-item { border-right: none; border-bottom: 1px solid var(--line); }
+    .uptime-item:last-child { border-bottom: none; }
+    .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="19" stroke="#c9a961" stroke-width="1"/>
+        <path d="M20 8L23 17H32L25 23L28 32L20 26L12 32L15 23L8 17H17L20 8Z" fill="#c9a961" opacity="0.9"/>
+      </svg>
+      <div class="brand-name">Noble<span> Hosting</span></div>
+    </div>
+    <div class="nav-links">
+      <a href="#plans">Plans</a>
+      <a href="#features">Features</a>
+      <a href="#uptime">Uptime</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="#plans" class="btn">Get a VM</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div>
+    <div class="eyebrow">Owned Hardware · Not Resold Capacity</div>
+    <h1>Infrastructure held to a <em>higher standard.</em></h1>
+    <p class="lede">Dedicated VMs on hardware we own and run ourselves — routed through Cloudflare, watched around the clock, and priced without the reseller markup.</p>
+    <div class="hero-ctas">
+      <a href="#plans" class="btn">View plans</a>
+      <a href="#features" class="btn btn-ghost">How it's protected</a>
+    </div>
+    <div class="trust-line">
+      <span><i class="dot"></i>Cloudflare-routed</span>
+      <span><i class="dot"></i>24/7 monitored</span>
+      <span><i class="dot"></i>NVMe storage</span>
+    </div>
+  </div>
+
+  <div class="plaque reveal">
+    <div class="plaque-head">
+      <span class="label">Standard Instance</span>
+      <span class="value">NH-01</span>
+    </div>
+    <div class="spec-row"><span class="k">Threads</span><span class="v"><span>4</span> · Ryzen 5700X</span></div>
+    <div class="spec-row"><span class="k">Memory</span><span class="v"><span>8</span> GB RAM</span></div>
+    <div class="spec-row"><span class="k">Storage</span><span class="v"><span>128</span> GB NVMe</span></div>
+    <div class="spec-row"><span class="k">Protection</span><span class="v">Cloudflare</span></div>
+    <div class="spec-row"><span class="k">Uptime target</span><span class="v">24 / 7</span></div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Why Noble</div>
+      <h2>Nothing rented, nothing resold.</h2>
+      <p>Every VM runs on hardware we own. That means no upstream reseller ToS to worry about, no oversold capacity, and a direct line to whoever's actually running the box.</p>
+    </div>
+  </div>
+  <div class="features-grid reveal">
+    <div class="feature-card">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2L4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6l-8-4z"/></svg>
+      <h3>Shielded origin</h3>
+      <p>Traffic is routed through Cloudflare so your VM's real address stays hidden from anyone probing for it.</p>
+    </div>
+    <div class="feature-card">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      <h3>Watched, not left alone</h3>
+      <p>The box is monitored around the clock. If something goes wrong, we know before you have to tell us.</p>
+    </div>
+    <div class="feature-card">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="4" width="18" height="16" rx="1.5"/><path d="M3 9h18M8 4v5"/></svg>
+      <h3>NVMe by default</h3>
+      <p>128GB of NVMe on every instance — no spinning disks, no "upgrade to SSD" upsell.</p>
+    </div>
+    <div class="feature-card">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 17l6-6-6-6M12 19h8"/></svg>
+      <h3>Root access, plain terms</h3>
+      <p>Full control of your instance. No confusing tiers, no hidden bandwidth caps buried in fine print.</p>
+    </div>
+  </div>
+</section>
+
+<section id="plans">
+  <div class="plans-wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Plans</div>
+      <h2>One spec. Priced honestly.</h2>
+      <p>Every instance is identical — the only choice is how many you need.</p>
+    </div>
+    <div class="plans-grid reveal">
+      <div class="plan-card">
+        <div class="plan-top">
+          <div>
+            <div class="plan-name">Single</div>
+            <div class="plan-tag">One instance</div>
+          </div>
+          <div class="seal"><span>NH</span></div>
+        </div>
+        <div class="plan-price"><span class="amount">$30</span><span class="period">/ month</span></div>
+        <div class="plan-sub">Billed monthly, cancel anytime.</div>
+        <ul class="plan-specs">
+          <li><b>4</b>&nbsp;threads — Ryzen 5700X</li>
+          <li><b>8GB</b>&nbsp;RAM</li>
+          <li><b>128GB</b>&nbsp;NVMe storage</li>
+          <li>Cloudflare-routed protection</li>
+          <li>24/7 monitoring</li>
+        </ul>
+        <a href="#contact" class="btn">Reserve a VM</a>
+      </div>
+      <div class="plan-card featured">
+        <div class="plan-top">
+          <div>
+            <div class="plan-name">Pair</div>
+            <div class="plan-tag">Two instances</div>
+          </div>
+          <div class="seal"><span>NH</span></div>
+        </div>
+        <div class="plan-price"><span class="amount">$60</span><span class="period">/ month</span></div>
+        <div class="plan-sub">Two full instances, same terms.</div>
+        <ul class="plan-specs">
+          <li><b>2×</b>&nbsp;full Single instances</li>
+          <li><b>8</b>&nbsp;threads combined</li>
+          <li><b>16GB</b>&nbsp;RAM combined</li>
+          <li>Cloudflare-routed protection</li>
+          <li>24/7 monitoring</li>
+        </ul>
+        <a href="#contact" class="btn">Reserve two</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="uptime" style="padding-top: 0;">
+  <div class="uptime-strip reveal">
+    <div class="uptime-item">
+      <span class="uptime-num">24/7</span>
+      <span class="uptime-label">Monitored</span>
+    </div>
+    <div class="uptime-item">
+      <span class="uptime-num">128</span>
+      <span class="uptime-label">GB NVMe / instance</span>
+    </div>
+    <div class="uptime-item">
+      <span class="uptime-num">1:1</span>
+      <span class="uptime-label">Dedicated, not oversold</span>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="cta-block reveal">
+    <div class="eyebrow" style="justify-content: center;">Get Started</div>
+    <h2>Ready when you are.</h2>
+    <p>Reach out and we'll have your instance provisioned the same day.</p>
+    <a href="mailto:hello@noblehosting.example" class="btn">Contact Noble Hosting</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>© 2026 Noble Hosting</div>
+    <div class="footer-links">
+      <a href="#plans">Plans</a>
+      <a href="#features">Features</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReduced && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>
